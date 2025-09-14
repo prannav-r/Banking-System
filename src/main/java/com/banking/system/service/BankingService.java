@@ -25,7 +25,7 @@ public class BankingService {
     /**
      * Authenticate user login
      */
-    public boolean login(String username, String password) {
+    public User login(String username, String password) {
         String sql = "SELECT * FROM userdata WHERE username = ? AND password = ?";
         
         try (Connection conn = databaseManager.getConnection();
@@ -45,13 +45,13 @@ public class BankingService {
                     currentUser.setAge(rs.getInt("age"));
                     currentUser.setCity(rs.getString("city"));
                     currentUser.setBalance(rs.getDouble("balance"));
-                    return true;
+                    return currentUser;
                 }
             }
         } catch (SQLException e) {
             System.err.println("Login error: " + e.getMessage());
         }
-        return false;
+        return null;
     }
 
     /**
@@ -239,7 +239,7 @@ public class BankingService {
     /**
      * Check if user exists
      */
-    private boolean userExists(String username) {
+    public boolean userExists(String username) {
         String sql = "SELECT COUNT(*) FROM userdata WHERE username = ?";
         
         try (Connection conn = databaseManager.getConnection();
@@ -288,11 +288,12 @@ public class BankingService {
         return String.valueOf(random.nextInt(90000) + 10000);
     }
 
+
     /**
-     * Check if user exists
+     * Get user by username
      */
-    public boolean userExists(String username) {
-        String sql = "SELECT COUNT(*) FROM userdata WHERE username = ?";
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM userdata WHERE username = ?";
         
         try (Connection conn = databaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -301,13 +302,22 @@ public class BankingService {
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) > 0;
+                    return new User(
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("full_name"),
+                        rs.getString("account_number"),
+                        rs.getString("contact_no"),
+                        rs.getInt("age"),
+                        rs.getString("city"),
+                        rs.getDouble("balance")
+                    );
                 }
             }
         } catch (SQLException e) {
-            System.err.println("User existence check error: " + e.getMessage());
+            System.err.println("Get user error: " + e.getMessage());
         }
-        return false;
+        return null;
     }
 
     /**

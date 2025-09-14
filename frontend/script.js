@@ -218,7 +218,7 @@ class BankingSystem {
     const password = document.getElementById("loginPassword").value;
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("http://localhost:8080/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -229,8 +229,8 @@ class BankingSystem {
       const data = await response.json();
 
       if (data.success) {
-        this.currentUser = data.user;
-        localStorage.setItem("currentUser", JSON.stringify(data.user));
+        this.currentUser = data.data.user;
+        localStorage.setItem("currentUser", JSON.stringify(data.data.user));
         this.showNotification("Login successful!", "success");
         this.showDashboard();
       } else {
@@ -270,7 +270,7 @@ class BankingSystem {
     }
 
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("http://localhost:8080/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -303,18 +303,20 @@ class BankingSystem {
     }
 
     try {
-      const response = await fetch("/api/deposit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount }),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/deposit?username=${this.currentUser.username}&amount=${amount}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = await response.json();
 
       if (data.success) {
-        this.currentUser.balance += amount;
+        this.currentUser.balance = data.data.newBalance;
         this.updateUser();
         this.updateBalanceDisplay();
         this.closeModal("depositModal");
@@ -348,18 +350,20 @@ class BankingSystem {
     }
 
     try {
-      const response = await fetch("/api/transfer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ accountNumber, amount }),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/transfer?username=${this.currentUser.username}&accountNumber=${accountNumber}&amount=${amount}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = await response.json();
 
       if (data.success) {
-        this.currentUser.balance -= amount;
+        this.currentUser.balance = data.data.newBalance;
         this.updateUser();
         this.updateBalanceDisplay();
         this.closeModal("transferModal");
@@ -395,13 +399,15 @@ class BankingSystem {
     }
 
     try {
-      const response = await fetch("/api/change-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ currentPassword, newPassword }),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/change-password?username=${this.currentUser.username}&currentPassword=${currentPassword}&newPassword=${newPassword}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = await response.json();
 
@@ -431,13 +437,15 @@ class BankingSystem {
     const password = document.getElementById("deletePassword").value;
 
     try {
-      const response = await fetch("/api/delete-account", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password }),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/delete-account?username=${this.currentUser.username}&password=${password}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = await response.json();
 

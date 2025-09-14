@@ -35,6 +35,20 @@ public class User {
         this.city = city;
     }
 
+    // Constructor with balance parameter
+    public User(String username, String password, String name, String accountNumber, 
+                String contactNumber, int age, String city, double balance) {
+        this();
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.accountNumber = accountNumber;
+        this.contactNumber = contactNumber;
+        this.age = age;
+        this.city = city;
+        this.balance = balance;
+    }
+
     // Getters and Setters
     public String getUsername() {
         return username;
@@ -58,6 +72,23 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    // Alias methods for compatibility
+    public String getFullName() {
+        return name;
+    }
+
+    public void setFullName(String fullName) {
+        this.name = fullName;
+    }
+
+    public String getContactNo() {
+        return contactNumber;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNumber = contactNo;
     }
 
     public String getAccountNumber() {

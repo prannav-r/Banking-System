@@ -75,7 +75,8 @@ public class BankingSystemApplication {
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
         
-        if (bankingService.login(username, password)) {
+        User loggedInUser = bankingService.login(username, password);
+        if (loggedInUser != null) {
             System.out.println("Logged in successfully!!");
             showMainMenu();
         } else {
