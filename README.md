@@ -362,7 +362,7 @@ This Java Swing version improves upon the original Python Tkinter application:
 ## 📝 Development Scripts
 
 - `run-maven.bat` - **Recommended** Windows Maven runner with environment variable loading
-- `run.bat` / `run.sh` - Full featured application runners **No Recommended**
+- `run.bat` / `run.sh` - Full featured application runners **Not Recommended**
 - `setup-db.bat` / `setup-db.sh` - Interactive database setup
 
 ## 🤝 Contributing
