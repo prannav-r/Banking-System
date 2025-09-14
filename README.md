@@ -9,9 +9,10 @@ A complete Java console application that replicates the functionality of the ori
 cp env.example .env
 # Edit .env with your MySQL credentials
 
-# 2. Run the application
+# 2. Run the application (choose one method)
+run-maven.bat     # Windows - Simple Maven runner (recommended)
+run.bat           # Windows - Full featured runner
 ./run.sh          # Linux/Mac
-run.bat           # Windows
 # Or: mvn exec:java
 ```
 
@@ -57,7 +58,8 @@ Banking-System/
 │   ├── config/DatabaseConfig.java       # Environment configuration
 │   └── util/ValidationUtil.java         # Input validation utilities
 ├── pom.xml                              # Maven configuration
-├── run.bat / run.sh                     # Console startup scripts
+├── run.bat / run.sh                     # Application runners
+├── run-maven.bat                        # Simple Maven runner (recommended)
 ├── setup-db.bat / setup-db.sh           # Database setup scripts
 ├── env.example                          # Database config template
 ├── README.md                            # Project documentation
@@ -260,7 +262,8 @@ This Java version improves upon the original Python Tkinter application:
 
 ## 📝 Development Scripts
 
-- `run.bat` / `run.sh` - Start the application
+- `run-maven.bat` - **Recommended** Windows Maven runner with environment variable loading
+- `run.bat` / `run.sh` - Full featured application runners
 - `setup-db.bat` / `setup-db.sh` - Interactive database setup
 
 ## 📄 License

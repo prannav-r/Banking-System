@@ -10,10 +10,21 @@ REM Load environment variables from .env file if it exists
 if exist .env (
     echo Loading environment variables from .env file...
     for /f "usebackq tokens=1,2 delims==" %%a in (.env) do (
-        if not "%%a"=="" if not "%%a:~0,1%"=="#" (
-            set "%%a=%%b"
+        if not "%%a"=="" (
+            if not "%%a:~0,1%"=="#" (
+                if not "%%a:~0,1%"==" " (
+                    set "%%a=%%b"
+                )
+            )
         )
     )
+) else (
+    echo .env file not found, using default values...
+    set DB_HOST=localhost
+    set DB_PORT=3306
+    set DB_NAME=bank
+    set DB_USERNAME=root
+    set DB_PASSWORD=
 )
 
 REM Check if Java is installed
