@@ -2,71 +2,77 @@
 
 A complete Java console application that replicates the functionality of the original Python Tkinter banking system with MySQL database integration.
 
-## Features
+## 🚀 Quick Start
+
+```bash
+# 1. Setup database credentials
+cp env.example .env
+# Edit .env with your MySQL credentials
+
+# 2. Run the application
+./run.sh          # Linux/Mac
+run.bat           # Windows
+# Or: mvn exec:java
+```
+
+## ✨ Features
 
 ### 🔐 User Authentication
 
-- **Login**: Secure user authentication with username and password
-- **Registration**: Create new accounts with complete user information
-- **Session Management**: Maintains user session throughout the application
+- **Separate Login/Register** options with comprehensive validation
+- **Username uniqueness** checking
+- **Password strength** validation (6+ chars, letters + numbers)
+- **Age verification** (18+ years required)
+- **Contact number** validation (exactly 10 digits)
 
 ### 💰 Banking Operations
 
 - **Deposit Amount**: Add money to your account
-- **Balance Enquiry**: Check current account balance
 - **Transfer Amount**: Send money to other accounts using account numbers
+- **Balance Enquiry**: Check current account balance
 - **Account Details**: View complete account information in formatted table
 
 ### ⚙️ Account Management
 
 - **Change Password**: Update account password with verification
 - **Delete Account**: Permanently remove account with password confirmation
-- **Account Information**: View detailed account profile
+- **Logout**: Return to main entry menu
 
 ### 🗄️ Database Integration
 
 - **MySQL Database**: Full database connectivity with proper SQL operations
 - **Transaction Support**: ACID compliant transfer operations
 - **Data Persistence**: All data stored in MySQL database
-- **Table Management**: Automatic database and table creation
+- **Auto Setup**: Automatic database and table creation
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-src/main/java/com/banking/system/
-├── BankingSystemApplication.java    # Main application entry point
-├── model/
-│   └── User.java                   # User entity class
-├── service/
-│   └── BankingService.java         # Core banking operations
-└── dao/
-    └── DatabaseManager.java         # Database connection management
+Banking-System/
+├── src/main/java/com/banking/system/
+│   ├── BankingSystemApplication.java    # Main console application
+│   ├── model/User.java                  # User entity class
+│   ├── service/BankingService.java       # Core banking operations
+│   ├── dao/DatabaseManager.java         # Database connection management
+│   ├── config/DatabaseConfig.java       # Environment configuration
+│   └── util/ValidationUtil.java         # Input validation utilities
+├── pom.xml                              # Maven configuration
+├── run.bat / run.sh                     # Console startup scripts
+├── setup-db.bat / setup-db.sh           # Database setup scripts
+├── env.example                          # Database config template
+├── README.md                            # Project documentation
+└── Main Project.py                      # Original Python version
 ```
 
-## Prerequisites
+## 🛠️ Prerequisites
 
 - **Java 17** or higher
 - **Maven 3.6** or higher
 - **MySQL Server** 8.0 or higher
-- **MySQL Connector/J** (included in dependencies)
 
-## Installation & Setup
+## 📋 Installation & Setup
 
-### 1. Clone/Download the Project
-
-```bash
-git clone <repository-url>
-cd Banking-System
-```
-
-### 2. Database Setup
-
-1. Install MySQL Server
-2. Start MySQL service
-3. Configure database connection using environment variables (see below)
-4. Note: The application will create the 'bank' database and 'userdata' table automatically
-
-#### Quick Database Setup
+### 1. Database Setup
 
 **Option A: Use the setup script (Recommended)**
 
@@ -81,21 +87,11 @@ setup-db.bat
 
 **Option B: Manual setup**
 
-1. Copy the environment template: `cp env.example .env`
-2. Edit `.env` file with your MySQL credentials
-3. Run the application
-
-#### Environment Variables Configuration
-
-The application uses environment variables for database configuration. You can set them in several ways:
-
-**Option 1: Using .env file (Recommended)**
-
 ```bash
-# Copy the example file
+# Copy environment template
 cp env.example .env
 
-# Edit .env file with your database credentials
+# Edit .env file with your MySQL credentials
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=bank
@@ -103,97 +99,53 @@ DB_USERNAME=root
 DB_PASSWORD=your_password
 ```
 
-**Option 2: Set environment variables directly**
+### 2. Build & Run
 
 ```bash
-# Linux/Mac
-export DB_HOST=localhost
-export DB_PORT=3306
-export DB_NAME=bank
-export DB_USERNAME=root
-export DB_PASSWORD=your_password
-
-# Windows
-set DB_HOST=localhost
-set DB_PORT=3306
-set DB_NAME=bank
-set DB_USERNAME=root
-set DB_PASSWORD=your_password
-```
-
-**Option 3: Use default values**
-If no environment variables are set, the application will use these defaults:
-
-- Host: localhost
-- Port: 3306
-- Database: bank
-- Username: root
-- Password: (empty)
-
-### 3. Build the Project
-
-```bash
+# Build the project
 mvn clean compile
-```
 
-### 4. Run the Application
-
-```bash
+# Run the application
 mvn exec:java
-```
 
-Or compile and run manually:
-
-```bash
-mvn clean package
-java -cp target/classes:target/dependency/* com.banking.system.BankingSystemApplication
-```
-
-## Usage
-
-### Starting the Application
-
-1. Configure your database connection using environment variables (see above)
-2. Run the application using Maven or Java command
-3. The application will automatically connect to the database and create tables if needed
-
-**Quick Start:**
-
-```bash
-# Using run script (recommended)
+# Or use the convenient scripts
 ./run.sh          # Linux/Mac
 run.bat           # Windows
-
-# Or using Maven directly
-mvn exec:java
 ```
 
-### Creating an Account
+## 🎯 Usage Guide
 
-1. Choose "Sign Up" option (if available) or register through the service
-2. Fill in all required information:
-   - Username (must be unique)
-   - Password
-   - Full Name
-   - Age
-   - Contact Number
-   - City
-3. Account will be created with ₹5,000 initial balance
+### Application Flow
+
+1. **Start Application** → Database connection established
+2. **Main Entry Menu** → Choose LOGIN or REGISTER
+3. **Authentication** → Login with credentials or register new account
+4. **Main Menu** → Access banking operations
+5. **Operations** → Deposit, Transfer, Balance, Account Details, etc.
+6. **Logout** → Return to entry menu
+
+### Registration Validation Rules
+
+- **Username**: Must be unique (checked against database)
+- **Password**: Minimum 6 characters, must contain letters and numbers
+- **Name**: Minimum 3 characters
+- **Age**: Must be 18 years or older
+- **Contact Number**: Exactly 10 digits
+- **City**: Minimum 2 characters
 
 ### Banking Operations
 
 Once logged in, you can:
 
 - **Deposit**: Add money to your account
-- **Transfer**: Send money to other accounts (requires account number)
-- **Check Balance**: View your current balance
-- **View Details**: See complete account information
-- **Change Password**: Update your password
-- **Delete Account**: Permanently remove your account
+- **Transfer**: Send money to other accounts (requires recipient account number)
+- **Balance**: View current balance
+- **Account Details**: See complete account information in table format
+- **Change Password**: Update password with current password verification
+- **Delete Account**: Permanently remove account (requires password confirmation)
+- **Logout**: Return to main entry menu
 
-## Database Schema
-
-### userdata Table
+## 🗄️ Database Schema
 
 ```sql
 CREATE TABLE userdata (
@@ -208,59 +160,59 @@ CREATE TABLE userdata (
 );
 ```
 
-## Features Comparison
+## 🔧 Environment Configuration
 
-| Feature         | Python Version    | Java Version            |
-| --------------- | ----------------- | ----------------------- |
-| Login/Signup    | ✅ Tkinter GUI    | ✅ Console Interface    |
-| Deposit         | ✅ Console Input  | ✅ Console Input        |
-| Transfer        | ✅ Console Input  | ✅ Console Input        |
-| Balance Check   | ✅ Console Output | ✅ Console Output       |
-| Change Password | ✅ Console Input  | ✅ Console Input        |
-| Delete Account  | ✅ Console Input  | ✅ Console Input        |
-| Account Details | ✅ Console Table  | ✅ Console Table        |
-| Data Storage    | ✅ MySQL Database | ✅ MySQL Database       |
-| UI/UX           | ✅ Desktop App    | ✅ Console App          |
-| Architecture    | ✅ Monolithic     | ✅ Layered Architecture |
+The application uses environment variables for database configuration:
 
-## Key Improvements in Java Version
+| Variable      | Default   | Description       |
+| ------------- | --------- | ----------------- |
+| `DB_HOST`     | localhost | Database host     |
+| `DB_PORT`     | 3306      | Database port     |
+| `DB_NAME`     | bank      | Database name     |
+| `DB_USERNAME` | root      | Database username |
+| `DB_PASSWORD` | (empty)   | Database password |
 
-1. **Better Architecture**: Layered architecture with separation of concerns
-2. **Type Safety**: Strong typing with compile-time error checking
-3. **Transaction Support**: ACID compliant database operations
-4. **Error Handling**: Comprehensive exception handling
-5. **Code Organization**: Modular design with proper package structure
-6. **Database Management**: Automatic database and table creation
-7. **Input Validation**: Better input validation and error messages
-
-## Technical Details
-
-### Dependencies
-
-- **MySQL Connector/J 8.0.33**: Database connectivity
-- **JUnit 5.9.2**: Unit testing framework
-- **Maven**: Build and dependency management
-
-### Database Operations
-
-- **Connection Pooling**: Efficient database connection management
-- **Prepared Statements**: SQL injection prevention
-- **Transactions**: ACID compliant operations
-- **Auto-commit Control**: Manual transaction management for transfers
-
-### Error Handling
-
-- **SQLException Handling**: Comprehensive database error handling
-- **Input Validation**: Number format and range validation
-- **User Feedback**: Clear error messages and success notifications
-
-## Running Tests
+**Setting Environment Variables:**
 
 ```bash
-mvn test
+# Option 1: .env file (recommended)
+cp env.example .env
+# Edit .env with your credentials
+
+# Option 2: Direct environment variables
+export DB_PASSWORD=your_password    # Linux/Mac
+set DB_PASSWORD=your_password      # Windows
 ```
 
-## Building Executable JAR
+## 🏗️ Architecture
+
+### Layered Architecture
+
+- **Presentation Layer**: `BankingSystemApplication.java` (Console UI)
+- **Service Layer**: `BankingService.java` (Business Logic)
+- **Data Access Layer**: `DatabaseManager.java` (Database Operations)
+- **Model Layer**: `User.java` (Data Models)
+- **Utility Layer**: `ValidationUtil.java` (Input Validation)
+
+### Key Design Patterns
+
+- **DAO Pattern**: Database access abstraction
+- **Service Layer Pattern**: Business logic separation
+- **Builder Pattern**: User object construction
+- **Validation Pattern**: Input validation utilities
+
+## 🧪 Testing
+
+```bash
+# Run tests
+mvn test
+
+# Test validation rules
+./test-validation.bat    # Windows
+./test-validation.sh     # Linux/Mac
+```
+
+## 📦 Building Executable JAR
 
 ```bash
 mvn clean package
@@ -268,47 +220,53 @@ mvn clean package
 
 The JAR file will be created in the `target/` directory.
 
-## Troubleshooting
+## 🐛 Troubleshooting
 
 ### Common Issues
 
-1. **Database Connection Error**
+**Database Connection Error**
 
-   - Ensure MySQL server is running
-   - Check environment variables are set correctly
-   - Verify MySQL port (default: 3306)
-   - Test connection manually: `mysql -h localhost -u root -p`
+- Ensure MySQL server is running
+- Check environment variables in `.env` file
+- Verify MySQL credentials and port (default: 3306)
+- Test connection: `mysql -h localhost -u root -p`
 
-2. **Environment Variables Not Loading**
+**Environment Variables Not Loading**
 
-   - Ensure .env file is in the project root directory
-   - Check .env file format (no spaces around =)
-   - Verify environment variable names match exactly
-   - Try setting variables directly in terminal
+- Ensure `.env` file is in project root
+- Check `.env` format (no spaces around `=`)
+- Verify variable names match exactly
+- Try setting variables directly in terminal
 
-3. **Compilation Errors**
+**Compilation Errors**
 
-   - Ensure Java 17+ is installed
-   - Check Maven installation
-   - Verify all dependencies are downloaded
+- Ensure Java 17+ is installed: `java -version`
+- Check Maven installation: `mvn -version`
+- Verify all dependencies: `mvn dependency:resolve`
 
-4. **Runtime Errors**
-   - Check database permissions
-   - Verify table creation permissions
-   - Ensure sufficient disk space
+## 🔄 Migration from Python
 
-## Contributing
+This Java version improves upon the original Python Tkinter application:
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+| Feature                | Python Version   | Java Version            |
+| ---------------------- | ---------------- | ----------------------- |
+| **UI**                 | Tkinter GUI      | Console Interface       |
+| **Architecture**       | Monolithic       | Layered Architecture    |
+| **Type Safety**        | Dynamic          | Static Typing           |
+| **Validation**         | Basic            | Comprehensive           |
+| **Error Handling**     | Basic            | Exception Handling      |
+| **Database**           | MySQL            | MySQL with Transactions |
+| **Session Management** | Global Variables | Service Layer           |
 
-## License
+## 📝 Development Scripts
+
+- `run.bat` / `run.sh` - Start the application
+- `setup-db.bat` / `setup-db.sh` - Interactive database setup
+
+## 📄 License
 
 This project is open source and available under the MIT License.
 
 ---
 
-**Note**: This is a demonstration banking system. In a real-world application, you would need additional security measures, encryption, audit logging, and compliance features.
+**⚠️ Security Notice**: This is a demonstration banking system. In production, implement additional security measures including encryption, audit logging, rate limiting, and compliance features.
