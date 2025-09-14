@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Banking System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Main Entry Page -->
+    <div id="mainEntryPage" class="page active">
+      <div class="container">
+        <div class="welcome-card">
+          <div class="header">
+            <h1><i class="fas fa-university"></i> Online Banking System</h1>
+            <p>Welcome to Secure Banking</p>
+          </div>
+
+          <div class="menu-options">
+            <button class="option-btn primary" onclick="showLogin()">
+              <i class="fas fa-sign-in-alt"></i>
+              <span>Login</span>
+              <small>Existing User</small>
+            </button>
+
+            <button class="option-btn secondary" onclick="showRegister()">
+              <i class="fas fa-user-plus"></i>
+              <span>Register</span>
+              <small>New Account</small>
+            </button>
+          </div>
+
+          <div class="info">
+            <small
+              ><i class="fas fa-shield-alt"></i> Secure & Reliable
+              Banking</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page">
+      <div class="container">
+        <div class="auth-card">
+          <div class="header">
+            <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+            <p>Access your account</p>
+          </div>
+
+          <form id="loginForm" class="form">
+            <div class="form-group">
+              <label for="loginUsername">Username</label>
+              <input type="text" id="loginUsername" name="username" required />
+            </div>
+
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                name="password"
+                required
+              />
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="showMainEntry()"
+              >
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </button>
+            </div>
+          </form>
+
+          <div class="auth-footer">
+            <p>
+              Don't have an account?
+              <a href="#" onclick="showRegister()">Register here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="registerPage" class="page">
+      <div class="container">
+        <div class="auth-card large">
+          <div class="header">
+            <h2><i class="fas fa-user-plus"></i> Register</h2>
+            <p>Create a new account</p>
+          </div>
+
+          <form id="registerForm" class="form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="regUsername">Username</label>
+                <input type="text" id="regUsername" name="username" required />
+                <small class="help-text">3-30 characters, unique</small>
+              </div>
+
+              <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input
+                  type="password"
+                  id="regPassword"
+                  name="password"
+                  required
+                />
+                <small class="help-text"
+                  >6+ characters, letters & numbers</small
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="regFullName">Full Name</label>
+              <input type="text" id="regFullName" name="fullName" required />
+              <small class="help-text"
+                >3+ characters, letters & spaces only</small
+              >
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="regAge">Age</label>
+                <input
+                  type="number"
+                  id="regAge"
+                  name="age"
+                  min="18"
+                  max="120"
+                  required
+                />
+                <small class="help-text">Must be 18+ years</small>
+              </div>
+
+              <div class="form-group">
+                <label for="regContact">Contact Number</label>
+                <input
+                  type="tel"
+                  id="regContact"
+                  name="contactNo"
+                  pattern="[0-9]{10}"
+                  required
+                />
+                <small class="help-text">Exactly 10 digits</small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="regCity">City</label>
+              <input type="text" id="regCity" name="city" required />
+              <small class="help-text"
+                >2+ characters, letters & spaces only</small
+              >
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="showMainEntry()"
+              >
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Register
+              </button>
+            </div>
+          </form>
+
+          <div class="auth-footer">
+            <p>
+              Already have an account?
+              <a href="#" onclick="showLogin()">Login here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+      <div class="dashboard-container">
+        <header class="dashboard-header">
+          <h1><i class="fas fa-university"></i> Online Banking System</h1>
+          <div class="user-info">
+            <span>Welcome, <span id="currentUser"></span></span>
+            <button class="btn btn-danger" onclick="logout()">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </header>
+
+        <div class="dashboard-content">
+          <div class="balance-card">
+            <h2><i class="fas fa-wallet"></i> Account Balance</h2>
+            <div class="balance-amount" id="currentBalance">₹0</div>
+          </div>
+
+          <div class="menu-grid">
+            <button class="menu-item" onclick="showDeposit()">
+              <i class="fas fa-plus-circle"></i>
+              <span>Deposit Amount</span>
+            </button>
+
+            <button class="menu-item" onclick="showBalance()">
+              <i class="fas fa-search-dollar"></i>
+              <span>Balance Enquiry</span>
+            </button>
+
+            <button class="menu-item" onclick="showTransfer()">
+              <i class="fas fa-exchange-alt"></i>
+              <span>Transfer Amount</span>
+            </button>
+
+            <button class="menu-item" onclick="showChangePassword()">
+              <i class="fas fa-key"></i>
+              <span>Change Password</span>
+            </button>
+
+            <button class="menu-item" onclick="showAccountDetails()">
+              <i class="fas fa-user-circle"></i>
+              <span>Account Details</span>
+            </button>
+
+            <button class="menu-item danger" onclick="showDeleteAccount()">
+              <i class="fas fa-trash-alt"></i>
+              <span>Delete Account</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div id="depositModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-plus-circle"></i> Deposit Amount</h2>
+          <span class="close" onclick="closeModal('depositModal')"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <form id="depositForm">
+            <div class="form-group">
+              <label for="depositAmount">Amount to Deposit</label>
+              <input
+                type="number"
+                id="depositAmount"
+                name="amount"
+                min="1"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeModal('depositModal')"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">Deposit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transfer Modal -->
+    <div id="transferModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-exchange-alt"></i> Transfer Amount</h2>
+          <span class="close" onclick="closeModal('transferModal')"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <form id="transferForm">
+            <div class="form-group">
+              <label for="transferAccount">Account Number</label>
+              <input
+                type="number"
+                id="transferAccount"
+                name="accountNumber"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="transferAmount">Amount to Transfer</label>
+              <input
+                type="number"
+                id="transferAmount"
+                name="amount"
+                min="1"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeModal('transferModal')"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">Transfer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-key"></i> Change Password</h2>
+          <span class="close" onclick="closeModal('changePasswordModal')"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <form id="changePasswordForm">
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input
+                type="password"
+                id="currentPassword"
+                name="currentPassword"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                required
+              />
+              <small class="help-text">6+ characters, letters & numbers</small>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm New Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                required
+              />
+            </div>
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeModal('changePasswordModal')"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Change Password
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div id="deleteAccountModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-exclamation-triangle"></i> Delete Account</h2>
+          <span class="close" onclick="closeModal('deleteAccountModal')"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <div class="warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>
+              Are you sure you want to delete your account? This action cannot
+              be undone!
+            </p>
+          </div>
+          <form id="deleteAccountForm">
+            <div class="form-group">
+              <label for="deletePassword">Enter your password to confirm</label>
+              <input
+                type="password"
+                id="deletePassword"
+                name="password"
+                required
+              />
+            </div>
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeModal('deleteAccountModal')"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-danger">
+                Delete Account
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Details Modal -->
+    <div id="accountDetailsModal" class="modal">
+      <div class="modal-content large">
+        <div class="modal-header">
+          <h2><i class="fas fa-user-circle"></i> Account Details</h2>
+          <span class="close" onclick="closeModal('accountDetailsModal')"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <div id="accountDetailsContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
