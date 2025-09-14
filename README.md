@@ -362,7 +362,7 @@ This Java Swing version improves upon the original Python Tkinter application:
 ## 📝 Development Scripts
 
 - `run-maven.bat` - **Recommended** Windows Maven runner with environment variable loading
-- `run.bat` / `run.sh` - Full featured application runners
+- `run.bat` / `run.sh` - Full featured application runners **No Recommended**
 - `setup-db.bat` / `setup-db.sh` - Interactive database setup
 
 ## 🤝 Contributing
@@ -390,5 +390,3 @@ This is a demonstration banking system. In production, implement additional secu
 - Compliance features (PCI DSS, etc.)
 
 ---
-
-**Built with ❤️ using Java Swing and MySQL**
