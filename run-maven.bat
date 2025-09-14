@@ -16,7 +16,7 @@ if exist .env (
 )
 
 REM Run Maven with environment variables
-echo Running Banking System with Maven...
-mvn clean compile exec:java -Dexec.mainClass="com.banking.system.BankingSystemApplication"
+echo Running Banking System Swing GUI with Maven...
+mvn clean compile exec:java -Dexec.mainClass="com.banking.system.BankingSystemSwingApplication"
 
 pause

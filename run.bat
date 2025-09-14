@@ -80,8 +80,8 @@ echo Compilation successful!
 echo.
 
 REM Run the application
-echo Starting Banking System Application...
+echo Starting Banking System Swing GUI...
 echo ==========================================
-mvn exec:java -Dexec.mainClass="com.banking.system.BankingSystemApplication"
+mvn exec:java -Dexec.mainClass="com.banking.system.BankingSystemSwingApplication"
 
 pause
